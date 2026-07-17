@@ -1,0 +1,23 @@
+{
+  "name": "tevanoxmovie-backend",
+  "version": "1.0.0",
+  "description": "TEVANOXMOVIE Backend API",
+  "main": "app/main.py",
+  "scripts": {
+    "dev": "uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "start": "uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    "test": "pytest",
+    "lint": "flake8",
+    "format": "black ."
+  },
+  "dependencies": {
+    "fastapi": "^0.104.1",
+    "uvicorn": "^0.24.0",
+    "python-dotenv": "^1.0.0"
+  },
+  "devDependencies": {
+    "pytest": "^7.4.0",
+    "black": "^23.10.0",
+    "flake8": "^6.1.0"
+  }
+}
