@@ -1,0 +1,52 @@
+services:
+  - type: web
+    name: tevanoxmovie-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DB_NAME
+        value: tevanoxmovie
+      - key: SECRET_KEY
+        sync: false
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: DOMAIN
+        value: tevanox.com
+      - key: API_URL
+        sync: false
+      - key: WEB_URL
+        sync: false
+      - key: ADMIN_URL
+        sync: false
+      - key: MOBILE_URL
+        sync: false
+      - key: AGENT_URL
+        sync: false
+      - key: STORAGE_ENDPOINT
+        sync: false
+      - key: STORAGE_ACCESS_KEY
+        sync: false
+      - key: STORAGE_SECRET_KEY
+        sync: false
+      - key: STORAGE_BUCKET
+        value: tevanoxmovie
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: PAYSTACK_PUBLIC_KEY
+        sync: false
+      - key: TEVANOX_SHARE
+        value: 0.60
+      - key: NETWORK_TOTAL
+        value: 0.40
+      - key: LEVEL_1_COMMISSION
+        value: 0.25
+      - key: LEVEL_2_COMMISSION
+        value: 0.10
+      - key: LEVEL_3_COMMISSION
+        value: 0.05

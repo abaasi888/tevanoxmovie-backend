@@ -1,503 +1,54 @@
-# ============================================================================ #
-#                    TEVANOXMOVIE-BACKEND .GITIGNORE                           #
-#                    Domain: tevanox.com                                       #
-#                    Version: 1.0.0                                            #
-# ============================================================================ #
-
-# ============================================================================ #
-# 1. PYTHON / BACKEND FILES                                                   #
-# ============================================================================ #
-
-# Python bytecode
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-*.pyd
-*.pyo
-*.pyc
-
-# Python distribution / packaging
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Python virtual environments
-venv/
-env/
-ENV/
-.env/
 .venv/
-venv.bak/
-env.bak/
-
-# Python test coverage
-.coverage
-.coverage.*
-.coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
-htmlcov/
-.tox/
-.nox/
-*.log
-
-# MyPy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.pyre/
-
-# Python tools
-*.prof
-.pyinstaller/
-*.pid
-*.seed
-*.pid.lock
-*.pid
-
-# ============================================================================ #
-# 2. ENVIRONMENT VARIABLES                                                    #
-# ============================================================================ #
-
-# Environment files
+venv/
+ENV/
+env/
 .env
-.env.local
-.env.development
-.env.production
-.env.test
-.env.staging
-.env.uat
-.env.ci
-.env.dev
-.env.qa
-
-# Secrets
-*.key
-*.pem
-*.p12
-*.pfx
-*.crt
-*.csr
-*.keystore
-*.jks
-*.kdb
-*.jceks
-*.p8
-*.p7b
-*.cer
-*.der
-
-# ============================================================================ #
-# 3. APPLICATION-SPECIFIC FILES                                              #
-# ============================================================================ #
-
-# TevanoxMovie specific
-uploads/
-media/
-temp/
-tmp/
-storage/
-logs/
 *.log
-*.tmp
-*.temp
 
-# Database files
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
 *.db
-*.db3
 *.sqlite
 *.sqlite3
-*.db-journal
-*.wal
-*.shm
-
-# Backend specific
-migrations/
-*.pyc
-*.pyo
-__pycache__/
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.nox/
-.mypy_cache/
-.ruff_cache/
-.pytype/
-.pyre/
-.hypothesis/
-
-# ============================================================================ #
-# 4. IDE / EDITOR FILES                                                       #
-# ============================================================================ #
-
-# Visual Studio Code
-.vscode/
-*.code-workspace
-.history/
-*.vsix
-.vscode-test/
-
-# IntelliJ IDEA / WebStorm / PyCharm
-.idea/
-*.iml
-*.iws
-*.ipr
-out/
-.idea_modules/
-*.class
-*.jar
-*.war
-*.ear
-
-# Sublime Text
-*.sublime-project
-*.sublime-workspace
-.sublime/
-*.sublime-*
-
-# Atom
-.atom/
-*.atom
-
-# Vim
-*.vim
-*.vimrc
-*.gvimrc
-*.swp
-*.swo
-
-# Emacs
-*~
-\#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
-
-# ============================================================================ #
-# 5. OS FILES                                                                 #
-# ============================================================================ #
-
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-._*
-.Spotlight-V100
-.Trashes
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-*.lnk
-
-# Linux
-*~
-*.swp
-*.swo
-*.swn
-*.swm
-*.orig
-*.rej
-
-# ============================================================================ #
-# 6. DOCKER / CONTAINER FILES                                                 #
-# ============================================================================ #
-
-# Docker
-*.dockerignore
-*.dockerignore-tmp
-*.docker-ignore
-*.dockerfile-tmp
-
-# Kubernetes
-*.kubeconfig
-*.kubeconfig.*
-*.kubeconfig-*
-*.kubeconfig-tmp
-*.kubectl
-*.helm
-*.helmignore
-*.tpl
-*.tgz
-
-# ============================================================================ #
-# 7. LOGS & CACHE                                                             #
-# ============================================================================ #
+*.bson
 
 # Logs
 logs/
 *.log
-*.err
-*.out
-*.trace
-*.debug
-*.info
-*.warn
-*.error
-*.fatal
-*.access
-*.audit
-*.syslog
 
-# Cache
-.cache/
-cache/
-*.cache
-*.cached
-*.cach
-*.caché
-*.cachem
-*.cache-meta
-
-# Temp files
-tmp/
-temp/
-*.tmp
-*.temp
-*.swp
-*.swo
-*.pid
-*.lock
-*.lck
-*.stale
-
-# ============================================================================ #
-# 8. TESTING & COVERAGE                                                       #
-# ============================================================================ #
-
-# Test coverage
-coverage/
-*.coverage
-*.coverage.*
-.coverage.*
+# Testing
+.pytest_cache/
+.coverage
 htmlcov/
 .tox/
-.nox/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.pytype/
-.pyre/
-.hypothesis/
 
-# Test reports
-test-reports/
-test-results/
-junit.xml
-pytest.xml
-*.test-result
-*.test-report
-*.spec-report
+# Deployment
+*.egg-info/
+dist/
+build/
 
-# ============================================================================ #
-# 9. DATABASE FILES                                                           #
-# ============================================================================ #
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
 
-# MongoDB
-*.bson
-*.mongodb
-*.mongo
-*.mongodump
+# MongoDB data
+/data/
 dump/
 mongodump/
-mongorestore/
-
-# SQLite
-*.db
-*.db3
-*.sqlite
-*.sqlite3
-*.db-journal
-*.wal
-*.shm
-
-# PostgreSQL
-*.pgdump
-*.psql
-*.sql.gz
-*.sql.bz2
-
-# Redis
-*.rdb
-*.aof
-*.redis
-dump.rdb
-appendonly.aof
-
-# ============================================================================ #
-# 10. SECURITY                                                                #
-# ============================================================================ #
-
-# Security files
-*.key
-*.pem
-*.p12
-*.pfx
-*.crt
-*.csr
-*.jks
-*.keystore
-*.truststore
-*.srl
-*.der
-*.cer
-*.kdb
-*.jceks
-*.p8
-*.p7b
-*.gpg
-*.asc
-*.sig
-*.sign
-*.encrypted
-*.enc
-*.cipher
-*.secret
-*.token
-*.api-key
-*.apikey
-*.apikeys
-*.secretkey
-*.privatekey
-*.publickey
-*.passphrase
-*.password
-*.credential
-*.credentials
-*.creds
-*.auth
-*.authkey
-*.auth-token
-*.authtoken
-*.jwt
-*.jwk
-*.jws
-*.jwe
-
-# AWS
-*.aws/
-*.aws-*
-*.aws*
-.aws/
-.aws-credentials
-.aws-config
-
-# Azure
-*.azure/
-*.azure-*
-*.azure*
-.azure/
-.azure-credentials
-.azure-config
-
-# GCP
-*.gcp/
-*.gcp-*
-*.gcp*
-.gcp/
-.gcp-credentials
-.gcp-config
-*.service-account.json
-*.service-account-key.json
-*.gcloud
-*.gcloud-*
-
-# ============================================================================ #
-# 11. MISC                                                                     #
-# ============================================================================ #
-
-# Archive files
-*.zip
-*.tar
-*.tar.gz
-*.tgz
-*.rar
-*.7z
-*.bz2
-*.xz
-*.lz
-*.lzma
-*.zst
-*.Z
-
-# Backup files
-*.bak
-*.backup
-*.old
-*.orig
-*.copy
-*.copy-*
-*.~*
-*~
-
-# Media files (ignore large media)
-*.mp4
-*.mov
-*.avi
-*.mkv
-*.webm
-*.flv
-*.wmv
-*.m4v
-*.mpg
-*.mpeg
-*.3gp
-*.3g2
-*.ogv
-
-*.mp3
-*.wav
-*.flac
-*.aac
-*.ogg
-*.wma
-*.m4a
-*.opus
-
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.svg
-*.bmp
-*.tiff
-*.webp
-*.ico
-*.heic
-
-# ============================================================================ #
-# 12. FINAL                                                                   #
-# ============================================================================ #
-
-# Always keep this file
-!.gitkeep
-!.gitignore
