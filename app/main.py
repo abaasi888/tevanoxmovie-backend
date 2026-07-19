@@ -5,8 +5,13 @@ from app.core.database import connect_to_mongo, close_mongo_connection
 from app.api.v1 import (
     auth, users, movies, music, series, 
     subscriptions, agents, admin, payments, streaming,
-    shareholders, dividends  # Added shareholder and dividend routers
+    shareholders, dividends
 )
+import logging
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="TevanoxMovie API",
@@ -16,10 +21,21 @@ app = FastAPI(
     redoc_url="/api/redoc"
 )
 
-# CORS
+# CORS - Allow all origins for now (update for production)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=[
+        "https://abaasi888.github.io",
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:3002",
+        "http://localhost:3003",
+        "https://tevanoxmovie-web.onrender.com",
+        "https://tevanoxmovie-admin.onrender.com",
+        "https://tevanoxmovie-mobile.onrender.com",
+        "https://tevanoxmovie-agent.onrender.com",
+        "*"  # Remove this in production
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -27,11 +43,17 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup_db_client():
-    await connect_to_mongo()
+    try:
+        await connect_to_mongo()
+        logger.info("✅ Database connection successful")
+    except Exception as e:
+        logger.error(f"❌ Database connection failed: {e}")
+        # Don't crash the app - it will fail gracefully on endpoints
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
     await close_mongo_connection()
+    logger.info("✅ Database connection closed")
 
 @app.get("/health")
 async def health_check():
@@ -52,3 +74,12 @@ app.include_router(streaming.router, prefix="/api/v1/streaming", tags=["Streamin
 # Shareholder Management Routers
 app.include_router(shareholders.router, prefix="/api/v1", tags=["Shareholders"])
 app.include_router(dividends.router, prefix="/api/v1", tags=["Dividends"])
+
+# Root endpoint
+@app.get("/")
+async def root():
+    return {
+        "message": "Welcome to TevanoxMovie API",
+        "version": "1.0.0",
+        "status": "running"
+    }
