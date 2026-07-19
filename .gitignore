@@ -52,3 +52,5 @@ build/
 /data/
 dump/
 mongodump/
+README.md
+*.md

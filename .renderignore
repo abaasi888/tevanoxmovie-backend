@@ -1,0 +1,7 @@
+README.md
+*.md
+docs/
+tests/
+*.pyc
+__pycache__/
+.git/
