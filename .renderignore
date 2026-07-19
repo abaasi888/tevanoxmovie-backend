@@ -5,3 +5,9 @@ tests/
 *.pyc
 __pycache__/
 .git/
+.github/
+.gitignore
+.env
+.env.example
+Dockerfile
+docker-compose.yml
