@@ -1,9 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from app.core.config import settings
-import ssl
 import logging
-import certifi
-import os
 
 logger = logging.getLogger(__name__)
 
@@ -14,22 +11,19 @@ class Database:
 db = Database()
 
 async def connect_to_mongo():
-    """Connect to MongoDB Atlas with SSL workaround"""
+    """Connect to MongoDB Atlas with SSL disabled for Render compatibility"""
     try:
-        # Check if it's an Atlas connection (contains 'mongodb+srv' or 'mongodb.net')
+        # Check if it's an Atlas connection (contains 'mongodb.net' or 'mongodb+srv')
         is_atlas = 'mongodb.net' in settings.MONGO_URI or 'mongodb+srv' in settings.MONGO_URI
         
         if is_atlas:
-            # For Atlas, use explicit SSL settings with certifi
-            logger.info("🔒 Connecting to MongoDB Atlas with SSL...")
+            logger.info("🔒 Connecting to MongoDB Atlas...")
             
-            # Create client with comprehensive SSL options
+            # Create client with SSL disabled (tlsAllowInvalidCertificates bypasses SSL verification)
             db.client = AsyncIOMotorClient(
                 settings.MONGO_URI,
-                tls=True,
                 tlsAllowInvalidCertificates=True,
                 tlsAllowInvalidHostnames=True,
-                tlsCAFile=certifi.where(),  # Use certifi's CA bundle
                 serverSelectionTimeoutMS=30000,
                 connectTimeoutMS=30000,
                 socketTimeoutMS=30000,
@@ -39,7 +33,7 @@ async def connect_to_mongo():
                 minPoolSize=10,
                 maxIdleTimeMS=45000,
             )
-            logger.info("🔒 SSL configured for MongoDB Atlas")
+            logger.info("🔒 SSL verification disabled for Render compatibility")
         else:
             # For localhost, no SSL needed
             logger.info("🔓 Connecting to local MongoDB...")
