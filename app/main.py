@@ -8,6 +8,7 @@ from app.api.v1 import (
     shareholders, dividends
 )
 import logging
+import os
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -21,24 +22,64 @@ app = FastAPI(
     redoc_url="/api/redoc"
 )
 
-# CORS - Allow all origins for now (update for production)
+# ============================================
+# CORS CONFIGURATION - PERMANENT FIX
+# ============================================
+
+# Define allowed origins based on environment
+ALLOWED_ORIGINS = [
+    # Production
+    "https://abaasi888.github.io",
+    "https://tevanoxmovie-backend.onrender.com",
+    "https://tevanoxmovie-web.onrender.com",
+    "https://tevanoxmovie-admin.onrender.com",
+    "https://tevanoxmovie-mobile.onrender.com",
+    "https://tevanoxmovie-agent.onrender.com",
+    "https://tevanox.com",
+    "https://www.tevanox.com",
+    "https://api.tevanox.com",
+    "https://admin.tevanox.com",
+    "https://mobile.tevanox.com",
+    "https://agent.tevanox.com",
+    
+    # Development
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:3002",
+    "http://localhost:3003",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3001",
+    "http://127.0.0.1:3002",
+    "http://127.0.0.1:3003",
+    
+    # Staging
+    "https://staging.tevanox.com",
+    "https://staging-api.tevanox.com",
+]
+
+# Allow all origins in development, but restrict in production
+if os.getenv("ENVIRONMENT") == "production":
+    origins = ALLOWED_ORIGINS
+else:
+    origins = ["*"]  # Allow all in development
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://abaasi888.github.io",
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://localhost:3002",
-        "http://localhost:3003",
-        "https://tevanoxmovie-web.onrender.com",
-        "https://tevanoxmovie-admin.onrender.com",
-        "https://tevanoxmovie-mobile.onrender.com",
-        "https://tevanoxmovie-agent.onrender.com",
-        "*"  # Remove this in production
-    ],
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allow_headers=[
+        "Accept",
+        "Accept-Language",
+        "Content-Language",
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Origin",
+        "Access-Control-Allow-Origin",
+    ],
+    expose_headers=["Content-Length", "Content-Range"],
+    max_age=86400,  # 24 hours
 )
 
 @app.on_event("startup")
@@ -48,7 +89,6 @@ async def startup_db_client():
         logger.info("✅ Database connection successful")
     except Exception as e:
         logger.error(f"❌ Database connection failed: {e}")
-        # Don't crash the app - it will fail gracefully on endpoints
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
@@ -75,11 +115,11 @@ app.include_router(streaming.router, prefix="/api/v1/streaming", tags=["Streamin
 app.include_router(shareholders.router, prefix="/api/v1", tags=["Shareholders"])
 app.include_router(dividends.router, prefix="/api/v1", tags=["Dividends"])
 
-# Root endpoint
 @app.get("/")
 async def root():
     return {
         "message": "Welcome to TevanoxMovie API",
         "version": "1.0.0",
-        "status": "running"
+        "status": "running",
+        "environment": os.getenv("ENVIRONMENT", "development")
     }
